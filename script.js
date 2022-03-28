@@ -1,23 +1,52 @@
-const title = 'JavaScript';
-console.log(typeof title);
+'use strict';
+const question = prompt('Как называется ваш проект?');
+const title = question;
+// console.log(title);
 
-let screens = 'Простые Сложные Интерактивные';
-console.log(screens.length);
-console.log(screens.toLowerCase().split(' '));
+const question1 = prompt('Какие типы экранов нужно разработать?',"Простые, Сложные, Интерактивные");
+let screens = question1;
+// console.log(screens);
 
 
-const screenPrice = 100;
-console.log('Стоимость версти экрана ' + screenPrice + ' долларов');
+const question2 = +prompt('Сколько будет стоить данная работа?', 12000);
+const screenPrice = parseInt(question2);
+// console.log(parseInt(screenPrice));
 
-const rollback = 42;
 
-const fullPrice = 100000;
-console.log('Стоимость разработки сайта ' + fullPrice + ' рублей');
-console.log(typeof fullPrice);
+const question3 = confirm('Нужен ли адаптив на сайте?');
+const adaptive = question3;
+// console.log(adaptive);
 
-// fullPrice у меня 100%  rollback делю на 100 умножаю на fullPrice получаю 42000 и это все делю на 1000 и получаю 42 процента
-const working = fullPrice * (rollback / 100) / 1000;
-console.log(working + '%');
+const service1 = prompt('Какой дополнительный тип услуги нужен?','service1');
+const ques1 = service1;
+// console.log(ques1);
 
-const adaptive = true;
-console.log(typeof adaptive);
+const servicePrice1 = +prompt('Сколько это будет стоить?','servicePrice1');
+const ques2 = parseInt(servicePrice1);
+// console.log(parseInt(ques2));
+
+const service2 = prompt('Какой дополнительный тип услуги нужен?','service2');
+const ques3 = service2;
+// console.log(ques3);
+
+const servicePrice2 = +prompt('Сколько это будет стоить?','servicePrice2');
+const ques4 = parseInt(servicePrice2);
+// console.log(parseInt(ques4));
+
+const sum = screenPrice + servicePrice1 + servicePrice2;
+const fullPrice = sum;
+// console.log(sum);
+
+const rollback = 42; // откат посреднику
+const servicePercentPrice = fullPrice - rollback;
+console.log(Math.ceil(servicePercentPrice));
+
+if(fullPrice > 30000){
+    console.log('Даем скидку в 10%');
+}else if(fullPrice > 15000 && fullPrice < 30000){
+    console.log('Даем скидку в 5%');
+}else if(fullPrice < 15000 && fullPrice > 0){
+    console.log('Скидка не предусмотрена');
+}else if(fullPrice <= 0){
+    console.log('Что то пошло не так');
+}
