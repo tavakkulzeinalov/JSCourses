@@ -14,11 +14,11 @@ const fullPrice = sum;
 const rollback = 42;
 const servicePercentPrice = fullPrice - rollback;
 
-
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
 };
-const getRollbackMessage = function(price){
+
+const getRollbackMessage = function (price) {
     if (price > 30000) {
         return 'Даем скидку в 10%';
     } else if (price > 15000 && price < 30000) {
@@ -31,7 +31,7 @@ const getRollbackMessage = function(price){
 };
 
 const getAllServicePrices = function (a, b) {
-    console.log(a + b);
+    return (a + b);
 };
 getAllServicePrices(servicePrice1, servicePrice2);
 const allServicePrices = getAllServicePrices;
@@ -52,6 +52,14 @@ const getServicePercentPrices = function (fullPriceMoney, rollbackPrice) {
 };
 getServicePercentPrices(fullPrice, rollback);
 const ServicePercentPrices = getServicePercentPrices;
+
+showTypeOf(title);
+showTypeOf(screens);
+showTypeOf(screenPrice);
+showTypeOf(ques2);
+showTypeOf(ques4);
+showTypeOf(screenPrice);
+
 
 console.log(getRollbackMessage(fullPrice));
 console.log(screens);
