@@ -4,12 +4,6 @@ let title;
 let screens;
 let screenPrice;
 let rollback = 10;
-let allServicePrices;
-let fullPrice;
-let servicePercentPrice;
-let service1;
-let service2;
-let servicePrice;
 
 const isNumber = function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
@@ -23,21 +17,6 @@ const asking = function () {
 do {
     screenPrice = +prompt('Сколько будет стоить данная работа?', 12000);
 } while (screenPrice < 1);
-
-const getAllServicePrices = function () {
-    let sum = 0;
-    for (let i = 0; i < 2; i++) {
-        if (i === 0) {
-            service1 = prompt('Какой дополнительый тип услуг нужен?');
-        } else if (i === 1) {
-            service2 = prompt('Какой дополнительый тип услуг нужен?');
-        }
-        while (!isNumber(servicePrice = prompt('Сколько это будет стоить?'))) {
-            sum += prompt('Сколько это будет стоить?');
-        }
-    }
-    return sum;
-};
 
 const showTypeOf = function (variable) {
     console.log(variable, typeof variable);
@@ -57,6 +36,41 @@ const getTitle = function () {
     });
 };
 
+const getAllServicePrices = function () {
+    let service1;
+    let service2;
+    let sum = 0;
+    for (let i = 0; i < 2; i++) {
+        if (i === 0) {
+            service1 = prompt('Какой дополнительый тип услуг нужен?');
+            console.log('service1', service1);
+        } else if (i === 1) {
+            service2 = prompt('Какой дополнительый тип услуг нужен?');
+            console.log('service2', service2);
+        }
+        let servicePrice = +prompt('Сколько это будет стоить?');
+        console.log('servicePrice', servicePrice);
+        while (!isNumber(servicePrice)) {
+            servicePrice = +prompt('Сколько это будет стоить?');
+            console.log('servicePrice', servicePrice);
+        }
+        sum += servicePrice;
+        console.log('sum', sum);
+
+        let examination = parseInt(servicePrice);
+        console.log('examination', examination);
+    }
+    return sum;
+};
+
+asking();
+
+const allServicePrices = getAllServicePrices();
+const fullPrice = getFullPrice();
+const servicePercentPrice = getServicePercentPrice();
+title = getTitle();
+
+
 const getRollbackMessage = function (price) {
     if (price > 30000) {
         return 'Даем скидку в 10%';
@@ -69,21 +83,12 @@ const getRollbackMessage = function (price) {
     }
 };
 
-asking();
-allServicePrices = getAllServicePrices();
-fullPrice = getFullPrice();
-servicePercentPrice = getServicePercentPrice();
-title = getTitle();
-
 showTypeOf(title);
 showTypeOf(screenPrice);
 
-
 console.log('allServicePrices', allServicePrices);
-
 console.log(getRollbackMessage(fullPrice));
 console.log(typeof title);
 console.log(typeof screenPrice);
 console.log(screens.length);
 console.log(servicePercentPrice);
-console.log(+servicePrice.replace(/[\D]+/g, ''));
