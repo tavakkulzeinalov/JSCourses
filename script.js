@@ -54,11 +54,7 @@ const getAllServicePrices = function () {
             servicePrice = +prompt('Сколько это будет стоить?');
             console.log('servicePrice', servicePrice);
         }
-        sum += servicePrice;
-        console.log('sum', sum);
-
-        let examination = parseInt(servicePrice);
-        console.log('examination', examination);
+        sum += parseInt(servicePrice);
     }
     return sum;
 };
