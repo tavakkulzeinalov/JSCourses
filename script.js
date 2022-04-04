@@ -2,48 +2,98 @@
 
 const appData = {
     title: '',
-    screens: '',
+    screens: [],
     screenPrice: 0,
     rollback: 10,
-    service1: '',
-    service2: '',
-    servicePrice: '',
-    asking: function () {
-        appData.title = prompt('Как называется ваш проект?', 'JavaScript');
-        appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, Сложные, Интерактивные");
-        do {
-            appData.screenPrice = +prompt('Сколько будет стоить данная работа?', 12000);
-        } while (appData.screenPrice < 1);
+    allServicePrices: 0,
+    fullPrice: 0,
+    servicePercentPrice: 0,
+    services: {},
+    serve: [],
+
+    start: function () {
+        appData.asking();
+        appData.addPrices();
+        appData.getFullPrice();
+        appData.getServicePercentPrice();
+        appData.getTitle();
+        appData.logger();
     },
+
     isNumber: function (num) {
         return !isNaN(parseFloat(num)) && isFinite(num);
     },
+    isStr: function (str) {
+        return !isNaN(String(str));
+    },
+
+    asking: function () {
+        let write;
+        do {
+            write = prompt('Как называется ваш проект?', 'JavaScript');
+        } while (appData.isNumber(write));
+
+        for (let i = 0; i < 2; i++) {
+            let name;
+            do {
+                name = prompt('Какие типы экранов нужно разработать?');
+            } while (appData.isNumber(name));
+
+            let price = 0;
+
+            do {
+                price = +prompt('Сколько будет стоить данная работа?', 12000);
+            } while (!appData.isNumber(price));
+
+            appData.screens.push({
+                id: i,
+                name: name,
+                price: price
+            });
+            // сложное задание номер 2
+            const result = appData.screens.reduce(function (n, p) {
+                return n + p.price;
+            }, 0);
+            console.log(result);
+        }
+
+        for (let i = 0; i < 2; i++) {
+            let name;
+            do {
+                name = prompt('Какой дополнительный тип услуг нужен?');
+            } while (appData.isNumber(name));
+            // сложное задание номер один
+            appData.serve.push({
+                id: i,
+                name: name
+            });
+            let price = 0;
+            do {
+                price = prompt('Сколько это будет стоить?');
+            } while (!appData.isNumber(price));
+            appData.services[name] = +price;
+        }
+    },
+    addPrices: function () {
+        for (let screen of appData.screens) {
+            appData.screenPrice += +screen.price;
+        }
+
+        for (let key in appData.services) {
+            appData.allServicePrices += appData.services[key];
+        }
+    },
+
     getFullPrice: function () {
-        return appData.screenPrice + appData.allServicePrices;
+        appData.fullPrice = +appData.screenPrice + appData.allServicePrices;
     },
     getServicePercentPrice: function () {
-        return appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
+        appData.servicePercentPrice = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100));
     },
     getTitle: function () {
-        return appData.title.replace(/(^|\s)\S/g, function (a) {
-            return a.toUpperCase();
+        appData.title = appData.title.replace(/(^|\s)\S/g, function (a) {
+            appData.title = a.toUpperCase();
         });
-    },
-    getAllServicePrices: function () {
-        let sum = 0;
-        for (let i = 0; i < 2; i++) {
-            if (i === 0) {
-                appData.service1 = prompt('Какой дополнительый тип услуг нужен?');
-            } else if (i === 1) {
-                appData.service2 = prompt('Какой дополнительый тип услуг нужен?');
-            }
-            appData.servicePrice = +prompt('Сколько это будет стоить?');
-            while (!appData.isNumber(appData.servicePrice)) {
-                appData.servicePrice = +prompt('Сколько это будет стоить?');
-            }
-            sum += parseInt(appData.servicePrice);
-        }
-        return sum;
     },
     getRollbackMessage: function (price) {
         if (price > 30000) {
@@ -56,25 +106,11 @@ const appData = {
             return 'Что то пошло не так';
         }
     },
-    start: function () {
-        appData.asking();
-        appData.allServicePrices = appData.getAllServicePrices();
-        appData.fullPrice = appData.getFullPrice();
-        appData.servicePercentPrice = appData.getServicePercentPrice();
-        appData.title = appData.getTitle();
-        appData.logger();
-        for (let key in appData.logger()) {
-            console.log(key);
-            break;
-        }
-    },
     logger: function () {
-        console.log('allServicePrices', appData.allServicePrices);
-        console.log(appData.getRollbackMessage(appData.fullPrice));
-        console.log(typeof appData.title);
-        console.log(typeof appData.screenPrice);
-        console.log(appData.screens.length);
         console.log(appData.servicePercentPrice);
+        console.log(appData.fullPrice);
+        console.log(appData.screens);
+        console.log(appData.services);
     }
 };
 appData.start();
