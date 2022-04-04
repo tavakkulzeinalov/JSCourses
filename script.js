@@ -111,6 +111,8 @@ const appData = {
         console.log(appData.fullPrice);
         console.log(appData.screens);
         console.log(appData.services);
+        console.log(appData.serve);
+
     }
 };
 appData.start();
