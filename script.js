@@ -5,6 +5,7 @@ const adv = document.querySelectorAll('.adv');
 const li = document.querySelectorAll('li');
 const ES6 = document.createElement('li');
 
+
 books[0].prepend(book[1]);
 book[2].before(book[3]);
 book[3].before(book[4]);
@@ -34,3 +35,4 @@ book4.innerHTML = `<h2>
 ES6.innerHTML = 'Глава 8: За пределами ES6';
 ES6.classList.add('li');
 li[26].append(ES6);
+document.body.style.backgroundImage = "url(/image/you-dont-know-js.jpg)";
