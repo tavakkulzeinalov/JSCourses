@@ -1,23 +1,10 @@
-'use strict';
-const header = document.getElementsByTagName('h1');
-const btn = document.getElementsByClassName('handler_btn');
-const btnPlus = document.querySelector('.screen-btn');
-const percent = document.querySelectorAll('.other-items.percent');
-const number = document.querySelectorAll('.other-items.number');
-const rollback = document.querySelector('.rollback input[type="range"]');
-const span = document.querySelector('.rollback span');
-const totalInput = document.getElementsByClassName('total-input');
-let screen = document.querySelectorAll('.screen');
+const books = document.querySelectorAll('.books');
+const book = document.querySelectorAll('.book');
+const adv = document.querySelectorAll('.adv');
+const li = document.querySelectorAll('li');
 
-console.log(header[0]);
-console.log(btn);
-console.log(btnPlus);
-console.log(percent);
-console.log(number);
-console.log(rollback);
-console.log(span);
-console.log(screen);
-
-for (let key of totalInput) {
-    console.log(key);
-}
+books[0].prepend(book[1]);
+book[2].before(book[3]);
+book[3].before(book[4]);
+book[2].before(book[5]);
+adv[0].remove();
