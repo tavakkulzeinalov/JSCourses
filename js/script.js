@@ -23,8 +23,11 @@ const fullTotalCount = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
 const scrn = screens[0];
-const input = document.querySelector('input');
+let input = document.querySelector('input');
 
+$(start).click(function () {
+    $(this).prop('disabled', true);
+});
 
 
 const appData = {
@@ -42,6 +45,13 @@ const appData = {
     init: function () {
         appData.addTitle();
         start.addEventListener('click', appData.start);
+        start.setAttribute('disabled', true);
+        if (start.onclick) {
+            start.removeAttribute('disabled');
+        } else {
+            start.setAttribute('disabled', true);
+        }
+
         screenBtn.addEventListener('click', appData.addScreenBlock);
         const rollbackAndSpan = function (event) {
             span.textContent = event.target.value;
