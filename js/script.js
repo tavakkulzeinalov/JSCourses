@@ -23,6 +23,9 @@ const fullTotalCount = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
 const scrn = screens[0];
+const input = document.querySelector('input');
+
+
 
 const appData = {
     title: '',
@@ -52,6 +55,14 @@ const appData = {
                 totalCount.value = (count.innerText | 0) + 1;
             }
         });
+        start.setAttribute('disabled', true);
+        input.oninput = function () {
+            if (input.value.length < 1) {
+                start.setAttribute('disabled', true);
+            } else {
+                start.removeAttribute('disabled');
+            }
+        };
     },
     addTitle: function () {
         document.title = title.textContent;
@@ -70,14 +81,6 @@ const appData = {
         screens.forEach(function (screen, index) {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
-            // первое задание
-            // const start = handlerBtn[0];
-            // start.disabled = true;
-            // if (select.length !== select[0] || input.length !== '') {
-            //     start.disabled = false;
-            // }
-
-
             const selectName = select.options[select.selectedIndex].textContent;
             appData.screens.push({
                 id: index,
@@ -85,7 +88,6 @@ const appData = {
                 price: +select.value * +input.value
             });
         });
-        console.log(appData.screens);
     },
     showResult: function () {
         total.value = appData.screenPrice;
