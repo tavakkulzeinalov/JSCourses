@@ -37,10 +37,7 @@ const appData = {
     serve: [],
     init: function () {
         appData.addTitle();
-        if (
-            start.addEventListener('click', appData.start)) {
-                start.setAttribute('disabled', true);
-        }
+        start.addEventListener('click', appData.start);
         screenBtn.addEventListener('click', appData.addScreenBlock);
         const rollbackAndSpan = function (event) {
             span.textContent = event.target.value;
