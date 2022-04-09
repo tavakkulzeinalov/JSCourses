@@ -37,7 +37,10 @@ const appData = {
     serve: [],
     init: function () {
         appData.addTitle();
-        start.addEventListener('click', appData.start);
+        if (
+            start.addEventListener('click', appData.start)) {
+                start.setAttribute('disabled', true);
+        }
         screenBtn.addEventListener('click', appData.addScreenBlock);
         const rollbackAndSpan = function (event) {
             span.textContent = event.target.value;
@@ -96,7 +99,7 @@ const appData = {
         total.value = appData.screenPrice;
         totalCountOther.value = appData.servicePricesPercent + appData.servicePricesNumber;
         fullTotalCount.value = appData.fullPrice;
-        totalCountRollback.value = appData.servicePercentPrice + +span.textContent; 
+        totalCountRollback.value = appData.servicePercentPrice + (+span.textContent / 100) * appData.fullPrice;
     },
     addServices: function () {
         otherItemsPercent.forEach(function (item) {
