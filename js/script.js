@@ -22,8 +22,11 @@ const totalCountOther = document.getElementsByClassName('total-input')[2];
 const fullTotalCount = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
-console.log(screens);
-let elements = document.querySelectorAll('.elements');
+const main = document.querySelector('.main');
+const cms = document.getElementById('cms-open');
+const hiddenCms = document.getElementsByClassName('hidden-cms-variants');
+const mainControls = document.querySelectorAll('.main-controls__input')[8];
+const select = document.getElementById('cms-select')[2];
 
 const appData = {
     title: '',
@@ -53,6 +56,41 @@ const appData = {
                 totalCount.value = (count.innerText | 0) + 1;
             }
         });
+
+        function hiddenBtn() {
+            document.getElementById('reset').style.display = 'inline-block';
+        }
+        start.addEventListener('click', hiddenBtn);
+
+        function NoneBtn() {
+            document.getElementById('start').style.display = 'none';
+        }
+        start.addEventListener('click', NoneBtn);
+
+        function disabled() {
+            document.querySelector('.main-controls__input').setAttribute('disabled', 'disabled');
+        }
+        start.addEventListener('click', disabled);
+
+        reset.onclick = function () {
+            const inputs = main.querySelectorAll('input');
+            for (let i = 0; i < inputs.length; i++) {
+                inputs[i].value = '';
+                start.style.display = 'block';
+                reset.style.display = 'none';
+            }
+        };
+
+        function cmsVariant() {
+            document.querySelector('.hidden-cms-variants').style.display = 'flex';
+        }
+        cms.addEventListener('click', cmsVariant);
+
+        function mainControlInput() {
+            document.querySelectorAll('.main-controls__input')[8].style.display = 'inline-block';
+        }
+        select.addEventListener('click', mainControlInput);
+
     },
     addTitle: function () {
         document.title = title.textContent;
