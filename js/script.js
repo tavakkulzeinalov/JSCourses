@@ -27,12 +27,17 @@ const cms = document.getElementById('cms-open');
 const hiddenCms = document.getElementsByClassName('hidden-cms-variants');
 const mainControls = document.querySelectorAll('.main-controls__input')[8];
 const select = document.getElementById('cms-select')[2];
+const customChackbox = document.querySelectorAll('.custom-checkbox');
+const input = document.querySelectorAll('input');
+const selectScreen = document.querySelectorAll('select');
+const selectZero = selectScreen[0];
+const selectOne = selectScreen[1];
 
 const appData = {
     title: '',
     screens: [],
     screenPrice: 0,
-    rollback: 0,
+    rollback: 20,
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
@@ -42,8 +47,8 @@ const appData = {
     serve: [],
     init: function () {
         this.addTitle();
-        start.addEventListener('click', appData.start);
-        screenBtn.addEventListener('click', appData.addScreenBlock);
+        start.addEventListener('click', this.start);
+        screenBtn.addEventListener('click', this.addScreenBlock);
         const rollbackAndSpan = function (event) {
             span.textContent = event.target.value;
         };
@@ -91,6 +96,19 @@ const appData = {
         }
         select.addEventListener('click', mainControlInput);
 
+        const mainControlsInput = document.getElementsByClassName('main-controls__input')[0];
+        let starts = document.getElementById("start");
+
+        starts.disabled = true;
+        mainControlsInput.addEventListener("change", stateHandle);
+
+        function stateHandle() {
+            if (document.getElementsByClassName('main-controls__input')[0].value !== "") {
+                starts.disabled = false;
+            } else {
+                starts.disabled = true;
+            }
+        }
     },
     addTitle: function () {
         document.title = title.textContent;
@@ -108,6 +126,37 @@ const appData = {
                 flagScreens = true;
             }
         });
+
+        customChackbox.forEach(i => {
+            for (let i = 0; i < customChackbox.length; i++) {
+                customChackbox[i].disabled = !customChackbox[i].checked;
+            }
+        });
+        input.forEach(i => {
+            for (let i = 0; i < input.length; i++) {
+                input[i].disabled = !input[i].disabled;
+                if (input[i].disabled) {
+                    return;
+                } else {
+                    input[i].disabled = !input[i].disabled;
+                }
+            }
+        });
+        if (selectZero) {
+            selectZero.disabled = true;
+        } else {
+            return;
+        }
+        if (screenBtn) {
+            screenBtn.disabled = true;
+        } else {
+            return;
+        }
+        if (selectOne) {
+            selectOne.disabled = true;
+        } else {
+            return;
+        }
         if (flagScreens) {
             appData.addScreens();
             appData.addServices();
@@ -125,7 +174,7 @@ const appData = {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
             const selectName = select.options[select.selectedIndex].textContent;
-            appData.screens.push({
+            this.screens.push({
                 id: index,
                 name: selectName,
                 price: +select.value * +input.value
@@ -136,7 +185,8 @@ const appData = {
         total.value = this.screenPrice;
         totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
         fullTotalCount.value = this.fullPrice;
-        totalCountRollback.value = this.servicePercentPrice + (+span.textContent / 100) * this.fullPrice;
+        totalCountRollback.value = this.fullPrice + (this.rollback / 100) * this.fullPrice;
+        // totalCountRollback.value = ((+span.textContent + this.rollback) / 100) * this.fullPrice;
     },
     addServices: function () {
         otherItemsPercent.forEach(item => {
@@ -145,7 +195,7 @@ const appData = {
             const input = item.querySelector('input[type=text]');
 
             if (check.checked) {
-                appData.servicesPercent[label.textContent] = +input.value;
+                this.servicesPercent[label.textContent] = +input.value;
             }
         });
 
