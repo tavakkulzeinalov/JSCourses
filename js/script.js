@@ -79,8 +79,12 @@ const appData = {
             rollback.value = '' || 0;
             span.innerHTML = 0 + '%';
             screenBtn.innerHTML = '+';
+
+
             let cloneScreen = screens[0].cloneNode(false);
-            screens[screens.length - 1].remove(cloneScreen);
+            screens[screens.length - 1].after(cloneScreen);
+
+
             document.querySelector('.hidden-cms-variants').style.display = 'none';
 
             function displayNone() {
@@ -315,4 +319,3 @@ const appData = {
     },
 };
 appData.init();
-console.log(appData);
