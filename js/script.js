@@ -24,7 +24,6 @@ const totalCountRollback = document.getElementsByClassName('total-input')[4];
 let screens = document.querySelectorAll('.screen');
 const main = document.querySelector('.main');
 const cms = document.getElementById('cms-open');
-const hiddenCms = document.getElementsByClassName('hidden-cms-variants');
 const mainControls = document.querySelectorAll('.main-controls__input')[8];
 const select = document.getElementById('cms-select')[2];
 const customChackbox = document.querySelectorAll('.custom-checkbox');
@@ -32,6 +31,7 @@ const input = document.querySelectorAll('input');
 const selectScreen = document.querySelectorAll('select');
 const selectZero = selectScreen[0];
 const selectOne = selectScreen[1];
+const other = document.getElementById('cms-select')[2];
 
 const appData = {
     title: '',
@@ -62,6 +62,12 @@ const appData = {
             }
         });
 
+        function otherCms() {
+            document.getElementsByClassName('.main-controls__input')[8].style.display = 'inline-block';
+        }
+        other.addEventListener('click', otherCms);
+
+
         function hiddenBtn() {
             document.getElementById('reset').style.display = 'inline-block';
         }
@@ -72,15 +78,11 @@ const appData = {
         }
         start.addEventListener('click', NoneBtn);
 
-        function disabled() {
-            document.querySelector('.main-controls__input').setAttribute('disabled', 'disabled');
-        }
-        start.addEventListener('click', disabled);
 
         reset.onclick = function () {
             input[0].value = '';
             selectZero.value = '';
-        
+
             const inputs = main.querySelectorAll('.total-input');
             for (let i = 0; i < inputs.length; i++) {
                 inputs[i].value = '';
@@ -134,6 +136,11 @@ const appData = {
 
         function cmsVariant() {
             document.querySelector('.hidden-cms-variants').style.display = 'flex';
+            if (cms.checked === false) {
+                document.querySelector('.hidden-cms-variants').style.display = 'none';
+            } else {
+                return;
+            }
         }
         cms.addEventListener('click', cmsVariant);
 
@@ -141,6 +148,7 @@ const appData = {
             document.querySelectorAll('.main-controls__input')[8].style.display = 'inline-block';
         }
         select.addEventListener('click', mainControlInput);
+
 
         const mainControlsInput = document.getElementsByClassName('main-controls__input')[0];
         let starts = document.getElementById("start");
@@ -172,6 +180,7 @@ const appData = {
                 flagScreens = true;
             }
         });
+
 
         customChackbox.forEach(i => {
             for (let i = 0; i < customChackbox.length; i++) {
