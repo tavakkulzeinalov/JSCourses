@@ -78,11 +78,57 @@ const appData = {
         start.addEventListener('click', disabled);
 
         reset.onclick = function () {
-            const inputs = main.querySelectorAll('input');
+            input[0].value = '';
+            selectZero.value = '';
+        
+            const inputs = main.querySelectorAll('.total-input');
             for (let i = 0; i < inputs.length; i++) {
                 inputs[i].value = '';
                 start.style.display = 'block';
                 reset.style.display = 'none';
+            }
+            const customChackboxes = document.querySelectorAll('.custom-checkbox');
+            for (let i = 0; i < customChackboxes.length; i++) {
+                customChackboxes[i].checked = '';
+                start.style.display = 'block';
+                reset.style.display = 'none';
+            }
+            customChackbox.forEach(i => {
+                for (let i = 0; i < customChackbox.length; i++) {
+                    customChackbox[i].disabled = !customChackbox[i].checked;
+                }
+            });
+            input.forEach(i => {
+                for (let i = 0; i < input.length; i++) {
+                    input[0].disabled = input[0].checked;
+                }
+            });
+            customChackbox.forEach(i => {
+                for (let i = 0; i < customChackbox.length; i++) {
+                    customChackbox[i].disabled = customChackbox[i].checked;
+                }
+            });
+
+            if (rollback) {
+                rollback.disabled = false;
+            } else {
+                return;
+            }
+
+            if (selectZero) {
+                selectZero.disabled = false;
+            } else {
+                return;
+            }
+            if (screenBtn) {
+                screenBtn.disabled = false;
+            } else {
+                return;
+            }
+            if (selectOne) {
+                selectOne.disabled = false;
+            } else {
+                return;
             }
         };
 
@@ -103,10 +149,10 @@ const appData = {
         mainControlsInput.addEventListener("change", stateHandle);
 
         function stateHandle() {
-            if (document.getElementsByClassName('main-controls__input')[0].value !== "") {
-                starts.disabled = false;
-            } else {
+            if (document.getElementsByClassName('main-controls__input')[0].value === "" && selectZero === selectZero[0]) {
                 starts.disabled = true;
+            } else {
+                starts.disabled = false;
             }
         }
     },
