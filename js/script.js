@@ -2,7 +2,7 @@
 
 const title = document.getElementsByTagName('h1')[0];
 const handlerBtn = document.getElementsByClassName('handler_btn');
-const start = handlerBtn[0];
+let start = handlerBtn[0];
 const reset = handlerBtn[1];
 const screenBtn = document.querySelector('.screen-btn');
 const otherItemsPercent = document.querySelectorAll('.other-items.percent');
@@ -27,17 +27,17 @@ const cms = document.getElementById('cms-open');
 const mainControls = document.querySelectorAll('.main-controls__input')[8];
 const select = document.getElementById('cms-select')[2];
 const customChackbox = document.querySelectorAll('.custom-checkbox');
-const input = document.querySelectorAll('input');
+let input = document.querySelectorAll('input');
 const selectScreen = document.querySelectorAll('select');
 const selectZero = selectScreen[0];
 const selectOne = selectScreen[1];
-const other = document.getElementById('cms-select')[2];
+const other = document.querySelector('#none');
 
 const appData = {
     title: '',
     screens: [],
     screenPrice: 0,
-    rollback: 20,
+    rollback: 10,
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
@@ -62,12 +62,6 @@ const appData = {
             }
         });
 
-        function otherCms() {
-            document.getElementsByClassName('.main-controls__input')[8].style.display = 'inline-block';
-        }
-        other.addEventListener('click', otherCms);
-
-
         function hiddenBtn() {
             document.getElementById('reset').style.display = 'inline-block';
         }
@@ -82,6 +76,18 @@ const appData = {
         reset.onclick = function () {
             input[0].value = '';
             selectZero.value = '';
+            rollback.value = '' || 0;
+            span.innerHTML = 0 + '%';
+            screenBtn.innerHTML = '+';
+            let cloneScreen = screens[0].cloneNode(false);
+            screens[screens.length - 1].remove(cloneScreen);
+            document.querySelector('.hidden-cms-variants').style.display = 'none';
+
+            function displayNone() {
+                document.querySelectorAll('select').style.display = 'none';
+            }
+            reset.addEventListener('click', displayNone);
+
 
             const inputs = main.querySelectorAll('.total-input');
             for (let i = 0; i < inputs.length; i++) {
@@ -132,7 +138,19 @@ const appData = {
             } else {
                 return;
             }
+            reset.addEventListener('click', () => {
+                this.fullPrice = 0;
+                this.rollback = 0;
+                this.screenPrice = 0;
+                this.screens = '';
+                this.servicePercentPrice = 0;
+            });
         };
+
+        function otherCms() {
+            document.querySelector('#none').style.display = 'inline-block';
+        }
+        other.addEventListener('click', otherCms);
 
         function cmsVariant() {
             document.querySelector('.hidden-cms-variants').style.display = 'flex';
@@ -151,16 +169,16 @@ const appData = {
 
 
         const mainControlsInput = document.getElementsByClassName('main-controls__input')[0];
-        let starts = document.getElementById("start");
+        start = document.getElementById("start");
 
-        starts.disabled = true;
+        start.disabled = true;
         mainControlsInput.addEventListener("change", stateHandle);
 
         function stateHandle() {
             if (document.getElementsByClassName('main-controls__input')[0].value === "" && selectZero === selectZero[0]) {
-                starts.disabled = true;
+                start.disabled = true;
             } else {
-                starts.disabled = false;
+                start.disabled = false;
             }
         }
     },
@@ -169,6 +187,15 @@ const appData = {
     },
 
     start: function () {
+        let selectScreen = document.querySelectorAll('select');
+        selectScreen.forEach(i => {
+            for (let i = 0; i < selectScreen.length; i++) {
+                selectScreen[i].disabled = !selectScreen[i].disabled;
+            }
+        });
+
+        let input = document.querySelectorAll('input');
+
         screens = document.querySelectorAll('.screen');
         let flagScreens = false;
         screens.forEach(item => {
@@ -180,7 +207,6 @@ const appData = {
                 flagScreens = true;
             }
         });
-
 
         customChackbox.forEach(i => {
             for (let i = 0; i < customChackbox.length; i++) {
@@ -289,3 +315,4 @@ const appData = {
     },
 };
 appData.init();
+console.log(appData);
