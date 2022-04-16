@@ -40,12 +40,12 @@ const appData = {
     servicesNumber: {},
     init: function () {
         this.addTitle();
-        startBtn.addEventListener('click', this.isCheckedSelects.bind(appData));
-        plusBtn.addEventListener('click', this.addScreenBlock.bind(appData));
-        inputRange.addEventListener('input', this.addRollback.bind(appData));
-        resetBtn.addEventListener('click', this.reset.bind(appData));
-        openCMS.addEventListener('change', this.openCMS.bind(appData));
-        noneCMS.addEventListener('change', this.noneCMS.bind(appData));
+        startBtn.addEventListener('click', this.isCheckedSelects.bind(this));
+        plusBtn.addEventListener('click', this.addScreenBlock.bind(this));
+        inputRange.addEventListener('input', this.addRollback.bind(this));
+        resetBtn.addEventListener('click', this.reset.bind(this));
+        openCMS.addEventListener('change', this.openCMS.bind(this));
+        noneCMS.addEventListener('change', this.noneCMS.bind(this));
         plusBtn.addEventListener('click', ({
             target: count
         }) => {
@@ -83,6 +83,7 @@ const appData = {
         }
     },
     reset: function () {
+        totalCount.value = 1;
         startBtn.style.display = 'flex';
         resetBtn.style.display = 'none';
         this.resetValues();
